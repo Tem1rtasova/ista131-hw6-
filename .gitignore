@@ -9,3 +9,5 @@ __pycache__/
 .venv/
 venv/
 *.pyc
+hw6_files.zip
+hw6_make_fig.png

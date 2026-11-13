@@ -88,3 +88,77 @@ def get_ct_sentiment_frame():
     frame = pd.DataFrame(data, index=["Trump", "Biden"])
 
     return frame
+
+def make_fig(frame):
+    """
+    Create a grouped bar chart of tweet sentiment.
+
+    Parameters:
+        frame (pd.DataFrame): Sentiment means and
+            standard deviations for both candidates.
+
+    Returns:
+        matplotlib.figure.Figure: Grouped bar chart
+            with standard deviation error bars.
+    """
+    fig, ax = plt.subplots(figsize=(11, 7))
+
+    candidates = list(frame.index)
+    x = range(len(candidates))
+    width = 0.35
+
+    x_day5 = [i - width / 2 for i in x]
+    x_day6 = [i + width / 2 for i in x]
+
+    ax.bar(
+        x_day5,
+        frame["10/5 mean"],
+        width,
+        yerr=frame["10/5 std"],
+        capsize=6,
+        label="October 5",
+        color="steelblue"
+    )
+
+    ax.bar(
+        x_day6,
+        frame["10/6 mean"],
+        width,
+        yerr=frame["10/6 std"],
+        capsize=6,
+        label="October 6",
+        color="orange"
+    )
+
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(candidates, fontsize=18)
+    ax.tick_params(axis="y", labelsize=18)
+    ax.set_ylabel("Mean Sentiment Polarity", fontsize=24)
+    ax.set_facecolor("whitesmoke")
+    fig.patch.set_facecolor("white")
+
+    for spine in ax.spines.values():
+        spine.set_color("black")
+
+    ax.legend()
+    fig.tight_layout()
+
+    return fig
+def main():
+    """
+    Print sentiment statistics and display the chart.
+
+    Returns:
+        None
+    """
+    frame = get_ct_sentiment_frame()
+
+    print()
+    print(frame)
+
+    fig = make_fig(frame)
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
