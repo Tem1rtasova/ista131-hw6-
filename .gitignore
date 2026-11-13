@@ -1,0 +1,11 @@
+
+hw6.pdf
+hw6_test.py
+compare_pandas.py
+data/
+test_data/
+__pycache__/
+.DS_Store
+.venv/
+venv/
+*.pyc
