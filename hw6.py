@@ -57,3 +57,34 @@ def get_sentiment(filename):
     std = statistics.stdev(polarities)
 
     return [mean, std]
+
+
+
+def get_ct_sentiment_frame():
+    """
+    Create a DataFrame of tweet sentiment statistics.
+
+    Parameters:
+        None
+
+    Returns:
+        pandas.DataFrame: Mean and sample standard
+        deviation of sentiment for Trump and Biden
+        on October 5 and October 6.
+    """
+    trump_5 = get_sentiment("data/trump_231005_730am.json")
+    trump_6 = get_sentiment("data/trump_231006_330pm.json")
+
+    biden_5 = get_sentiment("data/biden_231005_730am.json")
+    biden_6 = get_sentiment("data/biden_231006_330pm.json")
+
+    data = {
+        "10/5 mean": [trump_5[0], biden_5[0]],
+        "10/5 std": [trump_5[1], biden_5[1]],
+        "10/6 mean": [trump_6[0], biden_6[0]],
+        "10/6 std": [trump_6[1], biden_6[1]]
+    }
+
+    frame = pd.DataFrame(data, index=["Trump", "Biden"])
+
+    return frame
